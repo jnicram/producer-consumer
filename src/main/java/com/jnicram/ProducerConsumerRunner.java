@@ -13,7 +13,7 @@ public class ProducerConsumerRunner {
     private static final int MAX_QUEUE_SIZE = 20;
 
     public static void main(String[] args) {
-        final Queue sharedQueue = new LinkedList<Integer>();
+        final Queue<Task> sharedQueue = new LinkedList<>();
 
         ExecutorService producerExecutor = Executors.newFixedThreadPool(2);
         producerExecutor.execute(new TaskProducer(sharedQueue, MAX_QUEUE_SIZE));

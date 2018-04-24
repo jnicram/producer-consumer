@@ -1,19 +1,19 @@
 package com.jnicram.producer;
 
+import com.jnicram.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Queue;
-import java.util.Random;
 
 public class TaskProducer implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskProducer.class);
 
-    private final Queue queue;
+    private final Queue<Task> queue;
     private final int maxSize;
 
-    public TaskProducer(Queue queue, int maxSize) {
+    public TaskProducer(Queue<Task> queue, int maxSize) {
         this.queue = queue;
         this.maxSize = maxSize;
     }
@@ -32,15 +32,13 @@ public class TaskProducer implements Runnable {
                     }
                 }
 
-                Random random = new Random();
-                int number = random.nextInt(100);
-                LOG.info("Producing value " + number);
-                queue.add(number);
+                Task task = new Task();
+                task.generateRandomEquation();
+                LOG.info("new equation was created: " + task.getEquation());
+
+                queue.add(task);
                 queue.notifyAll();
             }
-
         }
     }
-
-
 }
