@@ -23,7 +23,7 @@ public class Task {
     private static final int MIN_EQUATION_INTEGERS = 2;
     private static final int MAX_EQUATION_INTEGERS = 10;
     private static final int MIN_INTEGER= 1;
-    private static final int MAX__INTEGER = 9999999;
+    private static final int MAX_INTEGER = 9999999;
 
     private String equation;
 
@@ -58,7 +58,7 @@ public class Task {
 
     private int getRandomInteger() {
         Random r = new Random();
-        return r.ints(MIN_INTEGER, (MAX__INTEGER + 1)).limit(1).findFirst().getAsInt();
+        return r.ints(MIN_INTEGER, (MAX_INTEGER + 1)).limit(1).findFirst().getAsInt();
     }
 
     private char getRandomOperation() {
