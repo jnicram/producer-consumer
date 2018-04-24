@@ -30,7 +30,7 @@ public class TaskConsumer implements Runnable {
 
                 Task task = queue.poll();
                 assert task != null;
-                LOG.info(String.format("result of equation '%s' = %d", task.getEquation(), task.execute()));
+                LOG.info(String.format("result of equation '%s' = %f", task.getEquation(), task.execute()));
                 queue.notifyAll();
             }
         }
