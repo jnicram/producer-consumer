@@ -22,18 +22,21 @@ public class Task {
 
     private static final int MIN_EQUATION_INTEGERS = 2;
     private static final int MAX_EQUATION_INTEGERS = 10;
-    private static final int MIN_INTEGER= 1;
-    private static final int MAX_INTEGER = 9999999;
+    private static final int MIN_INTEGER = 0;
+    private static final int MAX_INTEGER = 999;
 
     private String equation;
 
     public void generateRandomEquation() {
         StringBuilder equationBuilder = new StringBuilder();
-        int integersCount = getRandomIntegersCount();
+        int integersCount = getEquationIntegersCount();
+        boolean divideAsLastOperation = false;
         for (int idx = 0 ; idx < integersCount; idx++) {
-            equationBuilder.append(getRandomInteger());
+            equationBuilder.append(getRandomInteger(divideAsLastOperation));
             if (idx < integersCount - 1) {
-                equationBuilder.append(getRandomOperation());
+                final char operation = getRandomOperation();
+                divideAsLastOperation = '/' == operation;
+                equationBuilder.append(operation);
             }
         }
         equation = equationBuilder.toString();
@@ -51,19 +54,21 @@ public class Task {
         }
     }
 
-    private int getRandomIntegersCount() {
-        Random r = new Random();
-        return r.ints(MIN_EQUATION_INTEGERS, (MAX_EQUATION_INTEGERS + 1)).limit(1).findFirst().getAsInt();
+    private int getEquationIntegersCount() {
+        return getRandomIntegerFromRange(MIN_EQUATION_INTEGERS, MAX_EQUATION_INTEGERS);
     }
 
-    private int getRandomInteger() {
-        Random r = new Random();
-        return r.ints(MIN_INTEGER, (MAX_INTEGER + 1)).limit(1).findFirst().getAsInt();
+    private int getRandomInteger(boolean divideAsLastOperation) {
+        return getRandomIntegerFromRange(divideAsLastOperation ? MIN_INTEGER + 1 : MIN_INTEGER, MAX_INTEGER);
     }
 
     private char getRandomOperation() {
-        Random random = new Random();
-        int index = (int) (random.nextFloat() * OPERATIONS.length());
+        int index = getRandomIntegerFromRange(0, OPERATIONS.length() - 1);
         return OPERATIONS.charAt(index);
+    }
+
+    private int getRandomIntegerFromRange(int min, int max) {
+        Random random = new Random();
+        return random.ints(min, (max + 1)).limit(1).findFirst().getAsInt();
     }
 }

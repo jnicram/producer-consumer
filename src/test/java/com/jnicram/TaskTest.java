@@ -11,7 +11,7 @@ public class TaskTest {
     @Test
     public void shouldGeneratesProperEquation() {
         // given
-        Pattern pattern = Pattern.compile("^\\d+([-+\\/*]\\d+)*");
+        Pattern pattern = Pattern.compile("^\\d+([-+/*]\\d+)*");
         Task task = new Task();
 
         // when

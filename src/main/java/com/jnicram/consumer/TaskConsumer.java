@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class TaskConsumer implements Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TaskConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskConsumer.class);
 
     private final Queue<Task> queue;
 
@@ -24,13 +24,13 @@ public class TaskConsumer implements Runnable {
                     try {
                         queue.wait();
                     } catch (InterruptedException e) {
-                        LOG.error("Process is interrupted", e);
+                        LOGGER.error("Process is interrupted", e);
                     }
                 }
 
                 Task task = queue.poll();
                 assert task != null;
-                LOG.info(String.format("result of equation '%s' = %f", task.getEquation(), task.execute()));
+                LOGGER.info(String.format("result of equation '%s' = %f", task.getEquation(), task.execute()));
                 queue.notifyAll();
             }
         }

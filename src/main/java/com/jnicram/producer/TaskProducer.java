@@ -8,7 +8,7 @@ import java.util.Queue;
 
 public class TaskProducer implements Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TaskProducer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskProducer.class);
 
     private final Queue<Task> queue;
     private final int maxSize;
@@ -28,13 +28,13 @@ public class TaskProducer implements Runnable {
                         queue.wait();
                         shouldWait = queue.size() > maxSize / 2;
                     } catch (InterruptedException e) {
-                        LOG.error("Process is interrupted", e);
+                        LOGGER.error("Process is interrupted", e);
                     }
                 }
 
                 Task task = new Task();
                 task.generateRandomEquation();
-                LOG.info("new equation was created: " + task.getEquation());
+                LOGGER.info("new equation was created: " + task.getEquation());
 
                 queue.add(task);
                 queue.notifyAll();

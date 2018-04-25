@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class ProducerConsumerRunner {
 
-    private static final int MAX_QUEUE_SIZE = 99;
+    private static final int MAX_QUEUE_SIZE = 25;
 
     public static void main(String[] args) {
         final Queue<Task> sharedQueue = new LinkedList<>();
